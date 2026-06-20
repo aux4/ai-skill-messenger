@@ -13,8 +13,7 @@
     "conversation"
   ],
   "dependencies": [
-    "aux4/ai-skill",
-    "aux4/messenger"
+    "aux4/ai-skill"
   ],
   "profiles": [
     {
