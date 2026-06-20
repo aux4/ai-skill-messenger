@@ -1,0 +1,123 @@
+{
+  "scope": "agent",
+  "name": "skill-messenger",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "description": "Native agent skill: send/read messages and list conversations via aux4/messenger, with group-conversation etiquette guidance",
+  "tags": [
+    "ai",
+    "skill",
+    "messenger",
+    "agent",
+    "conversation"
+  ],
+  "dependencies": [
+    "aux4/ai-skill",
+    "aux4/messenger"
+  ],
+  "profiles": [
+    {
+      "name": "ai:skill",
+      "commands": [
+        {
+          "name": "messenger",
+          "execute": [
+            "profile:ai:skill:messenger"
+          ],
+          "help": {
+            "text": "Send/read messages and list conversations via the messenger; read the room before you speak"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ai:skill:messenger",
+      "commands": [
+        {
+          "name": "prompt",
+          "execute": [
+            "cat ${packageDir}/instructions/messenger.md"
+          ],
+          "help": {
+            "text": "Print the group-conversation etiquette guidance (when to respond, when NO_REPLY, @mentions, sending files)"
+          }
+        },
+        {
+          "name": "contacts",
+          "execute": [
+            "aux4 messenger conversation list --port $$MESSENGER_HUB_PORT --member agent:$$MESSENGER_AGENT_ID"
+          ],
+          "help": {
+            "text": "List conversations the agent belongs to (discover IDs; never hardcode them)"
+          }
+        },
+        {
+          "name": "directory",
+          "execute": [
+            "aux4 messenger registry list --port $$MESSENGER_HUB_PORT"
+          ],
+          "help": {
+            "text": "List all registered users and agents in the messenger registry"
+          }
+        },
+        {
+          "name": "conversation",
+          "execute": [
+            "aux4 messenger conversation get --port $$MESSENGER_HUB_PORT --conversation ${conversation}"
+          ],
+          "help": {
+            "text": "Get conversation details and members",
+            "variables": [
+              {
+                "name": "conversation",
+                "text": "The conversation ID",
+                "arg": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "read",
+          "execute": [
+            "aux4 messenger messages --port $$MESSENGER_HUB_PORT --conversation ${conversation} --limit ${limit}"
+          ],
+          "help": {
+            "text": "Read recent messages from a conversation (catch up before responding)",
+            "variables": [
+              {
+                "name": "conversation",
+                "text": "The conversation ID",
+                "arg": true
+              },
+              {
+                "name": "limit",
+                "text": "Maximum number of messages to retrieve",
+                "default": "10"
+              }
+            ]
+          }
+        },
+        {
+          "name": "send",
+          "execute": [
+            "aux4 messenger send --port $$MESSENGER_HUB_PORT --conversation ${conversation} --from agent:$$MESSENGER_AGENT_ID --senderType agent --senderName $$MESSENGER_AGENT_NAME --message ${message}"
+          ],
+          "help": {
+            "text": "Send a message to a conversation (under your own name; never impersonate)",
+            "variables": [
+              {
+                "name": "conversation",
+                "text": "The conversation ID"
+              },
+              {
+                "name": "message",
+                "text": "The message to send",
+                "arg": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
