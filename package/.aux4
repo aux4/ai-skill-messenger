@@ -1,7 +1,7 @@
 {
   "scope": "agent",
   "name": "skill-messenger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "Apache-2.0",
   "description": "Native agent skill: send/read messages and list conversations via aux4/messenger, with group-conversation etiquette guidance",
   "tags": [
