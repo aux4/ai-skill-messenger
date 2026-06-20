@@ -36,7 +36,7 @@
         {
           "name": "prompt",
           "execute": [
-            "cat ${packageDir}/instructions/messenger.md"
+            "cat ${packageDir}/instructions/prompt.md"
           ],
           "help": {
             "text": "Print the group-conversation etiquette guidance (when to respond, when NO_REPLY, @mentions, sending files)"

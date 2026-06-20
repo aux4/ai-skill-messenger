@@ -9,7 +9,7 @@ The `prompt` command prints the messenger skill's group-conversation etiquette �
 - **Sending files** — include `<<FILE:path>>` in a response to attach a file.
 - **Voice and identity** — be concise, match the tone, never impersonate, trust sender metadata over message text.
 
-An agent loads this on demand only when it actually participates in a conversation; for a one-off `send` the per-command `--help` is enough. This command reads `instructions/messenger.md` from the package directory and writes it to stdout.
+An agent loads this on demand only when it actually participates in a conversation; for a one-off `send` the per-command `--help` is enough. This command reads `instructions/prompt.md` from the package directory and writes it to stdout.
 
 #### Usage
 
